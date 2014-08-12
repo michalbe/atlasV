@@ -2,18 +2,25 @@
 
 var AV = AV || {};
 
-AV.BLOCK = (function() {
-  var draw = function(x, y, color) {
-    AV.main.ctx.fillStyle = color;
-    AV.main.ctx.fillRect(
-      x*AV.consts.cellSize-0.5,
-      y*AV.consts.cellSize-0.5,
-      AV.consts.cellSize,
-      AV.consts.cellSize
-    );
-  };
+AV.block = function(x, y, color) {
+  this.x = x;
+  this.y = y;
+  this.speedY = 1;
+  this.speedX = 0;
+  this.color = color;
+};
 
-  return {
-    draw: draw
-  };
-})();
+AV.block.prototype.update = function(){
+  this.y += this.speedY;
+  this.x += this.speedX;
+};
+
+AV.block.prototype.draw = function() {
+  AV.main.ctx.fillStyle = this.color;
+  AV.main.ctx.fillRect(
+    this.x,
+    this.y,
+    AV.consts.cellSize,
+    AV.consts.cellSize
+  );
+};
