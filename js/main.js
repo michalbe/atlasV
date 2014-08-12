@@ -3,6 +3,7 @@
 var AV = AV || {};
 
 AV.main = (function() {
+  var STATE = 1;
   var blocks = [];
   var matrix = [];
   for (var i = 0; i< AV.consts.totalWidth; i++) {
@@ -53,9 +54,13 @@ AV.main = (function() {
     block.update();
     block.draw();
     blocks.forEach(function(b){
+      b.update();
       b.draw();
     });
-    requestAnimationFrame(tick);
+
+    if (STATE) {
+      requestAnimationFrame(tick);
+    }
   };
 
   var createNewBlock = function() {
@@ -77,7 +82,6 @@ AV.main = (function() {
     matches = [b];
     checkNeighbors(coords.x, coords.y);
     if (matches.length > 2) {
-      var remove = [];
       matches.forEach(function(m) {
         var coo = calculateMatrixPosition(m);
         delete matrix[coo.x][coo.y];
@@ -135,13 +139,17 @@ AV.main = (function() {
     blocks.push(b);
   };
 
+
   return {
     init: init,
     ctx: ctx,
     createNewBlock: createNewBlock,
     addToStack: addToStack,
+    get matrix() { return matrix; },
     checkWithMatrix: checkWithMatrix,
-    get blocks() { return blocks; }
+    get blocks() { return blocks; },
+    get STATE() { return STATE; },
+    set STATE(s) { STATE = s; if (s===1) { requestAnimationFrame(tick); } }
   };
 })();
 
