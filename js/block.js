@@ -11,23 +11,32 @@ AV.block = function(x, y, speed) {
   this.type = ~~(Math.random()*2);
   this.color = colors[this.type];
   this.size = AV.consts.cellSize;
+  this.active = true;
+  this.collides = false;
 };
 
-AV.block.prototype.update = function() {
-  var c = false;
+AV.block.prototype.checkCollision = function(){
+  this.collides = false;
   var blocks = AV.main.blocks;
   for (var i=0, l = blocks.length; i<l; i++) {
-    if (this.collidesWith(blocks[i])) {
-      c = true;
+    if (this !== blocks[i] && this.collidesWith(blocks[i])) {
+      this.colw = i;
+      this.collides = true;
       break;
     }
   }
+};
 
-  if (this.y >= AV.consts.totalHeight - this.size || c) {
+AV.block.prototype.update = function() {
+  this.checkCollision();
+  if (this.y >= AV.consts.totalHeight - this.size || this.collides) {
     this.y = (~~(this.y/this.size))*this.size;
-    AV.main.addToStack(this);
-    AV.main.checkWithMatrix(this);
-    AV.main.createNewBlock();
+    if (this.active) {
+      AV.main.addToStack(this);
+      AV.main.checkWithMatrix(this);
+      AV.main.createNewBlock();
+      this.active = false;
+    }
   } else {
     this.y += this.speedY;
   }
