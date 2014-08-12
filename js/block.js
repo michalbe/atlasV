@@ -8,14 +8,24 @@ AV.block = function(x, y, color, speed) {
   this.speedY = speed || 10;
   this.speedX = 0;
   this.color = color;
+  this.size = AV.consts.cellSize;
 };
 
 AV.block.prototype.update = function() {
-  if (this.y < AV.consts.totalHeight - AV.consts.cellSize) {
-    this.y += this.speedY;
-  } else {
+  var c = false;
+  var blocks = AV.main.blocks;
+  for (var i=0, l = blocks.length; i<l; i++) {
+    if (this.collidesWith(blocks[i])) {
+      c = true;
+      break;
+    }
+  }
+
+  if (this.y >= AV.consts.totalHeight - this.size || c) {
     AV.main.addToStack(this);
     AV.main.createNewBlock();
+  } else {
+    this.y += this.speedY;
   }
 
   this.x += this.speedX;
@@ -29,4 +39,15 @@ AV.block.prototype.draw = function() {
     AV.consts.cellSize,
     AV.consts.cellSize
   );
+};
+
+AV.block.prototype.collidesWith = function(block) {
+  if (this.x < block.x + block.size &&
+   this.x + this.size > block.x &&
+   this.y < block.y + block.size &&
+   this.size + this.y > block.y) {
+    return true;
+  } else {
+    return false;
+  }
 };

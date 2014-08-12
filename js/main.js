@@ -57,7 +57,8 @@ AV.main = (function() {
     block = new AV.block(
       ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize,
       0,
-      '#FF00FF'
+      'rgb(' + ~~(Math.random()*255) +',' +
+      ~~(Math.random()*255) +',' + ~~(Math.random()*255) +')'
     );
   };
 
@@ -69,7 +70,8 @@ AV.main = (function() {
     init: init,
     ctx: ctx,
     createNewBlock: createNewBlock,
-    addToStack: addToStack
+    addToStack: addToStack,
+    get blocks() { return blocks; }
   };
 })();
 
