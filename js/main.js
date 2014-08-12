@@ -75,53 +75,56 @@ AV.main = (function() {
     var coords = calculateMatrixPosition(b);
     matrix[coords.x][coords.y] = b;
     matches = [b];
-    checked = [b];
     checkNeighbors(coords.x, coords.y);
-    console.log(matches);
+    if (matches.length > 2) {
+      var remove = [];
+      matches.forEach(function(m) {
+        var coo = calculateMatrixPosition(m);
+        delete matrix[coo.x][coo.y];
+      });
+      blocks = blocks.filter(function(b) {
+        return matches.indexOf(b) === -1;
+      });
+    }
   };
 
   var matches = [];
-  var checked = [];
+  //var checked = [];
   var checkNeighbors = function(x, y) {
 
     var current = matrix[x][y];
     var currentType = current.type;
 
-    var result = {
-      up: 0,
-      down: 0,
-      left: 0,
-      right: 0
-    };
-
-    if (x > 0 && matrix[x-1][y] && checked.indexOf(matrix[x-1][y]) === -1) {
+    if (x > 0 && matrix[x-1][y] && matches.indexOf(matrix[x-1][y]) === -1) {
       if (currentType === matrix[x-1][y].type) {
         matches.push(matrix[x-1][y]);
-        checked.push(matrix[x-1][y]);
+        //matrix[x-1][y].type = 2;
         checkNeighbors(x-1, y);
       }
     }
 
-    if (y > 0 && matrix[x][y-1] && checked.indexOf(matrix[x][y-1]) === -1) {
+    if (y > 0 && matrix[x][y-1] && matches.indexOf(matrix[x][y-1]) === -1) {
       if (currentType === matrix[x][y-1].type) {
         matches.push(matrix[x][y-1]);
-        checked.push(matrix[x][y-1]);
+        //matrix[x][y-1].type = 2;
         checkNeighbors(x, y-1);
       }
     }
 
-    if (x < AV.consts.cellsX && matrix[x+1][y] && checked.indexOf(matrix[x+1][y]) === -1) {
+    if (x < AV.consts.cellsX && matrix[x+1][y] &&
+      matches.indexOf(matrix[x+1][y]) === -1) {
       if (currentType === matrix[x+1][y].type) {
         matches.push(matrix[x+1][y]);
-        checked.push(matrix[x+1][y]);
+        //matrix[x+1][y].type = 2;
         checkNeighbors(x+1, y);
       }
     }
 
-    if (y < AV.consts.cellsY && matrix[x][y+1] && matches.indexOf(matrix[x][y+1]) === -1) {
+    if (y < AV.consts.cellsY && matrix[x][y+1] &&
+      matches.indexOf(matrix[x][y+1]) === -1) {
       if (currentType === matrix[x][y+1].type) {
         matches.push(matrix[x][y+1]);
-        checked.push(matrix[x][y+1]);
+        //matrix[x][y+1].type = 2;
         checkNeighbors(x, y+1);
       }
     }

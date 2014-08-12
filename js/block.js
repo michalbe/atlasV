@@ -25,8 +25,8 @@ AV.block.prototype.update = function() {
 
   if (this.y >= AV.consts.totalHeight - this.size || c) {
     this.y = (~~(this.y/this.size))*this.size;
-    AV.main.checkWithMatrix(this);
     AV.main.addToStack(this);
+    AV.main.checkWithMatrix(this);
     AV.main.createNewBlock();
   } else {
     this.y += this.speedY;
