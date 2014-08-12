@@ -6,9 +6,9 @@ var colors = ['#FF0000', '#00FF00', '#0000FF', '#CCCCCC'];
 AV.block = function(x, y, speed) {
   this.x = x-0.5;
   this.y = y;
-  this.speedY = speed || 3;
+  this.speedY = speed || 6;
   this.speedX = 0;
-  this.type = ~~(Math.random()*2);
+  this.type = ~~(Math.random()*4);
   this.color = colors[this.type];
   this.size = AV.consts.cellSize;
   this.active = true;
@@ -29,11 +29,16 @@ AV.block.prototype.checkCollision = function(){
 
 AV.block.prototype.update = function() {
   this.checkCollision();
+  //if (this.y >= AV.consts.totalHeight - this.size || this.collides) {
   if (this.y >= AV.consts.totalHeight - this.size || this.collides) {
     this.y = (~~(this.y/this.size))*this.size;
     if (this.active) {
       AV.main.addToStack(this);
-      AV.main.checkWithMatrix(this);
+    }
+
+    AV.main.checkWithMatrix(this);
+
+    if (this.active) {
       AV.main.createNewBlock();
       this.active = false;
     }
