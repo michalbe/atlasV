@@ -47,10 +47,10 @@ AV.main = (function() {
     clearCanvas();
     block.update();
     block.draw();
-    requestAnimationFrame(tick);
     blocks.forEach(function(b){
       b.draw();
     });
+    requestAnimationFrame(tick);
   };
 
   var createNewBlock = function() {
