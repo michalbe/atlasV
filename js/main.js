@@ -63,7 +63,19 @@ AV.main = (function() {
     }
   };
 
+  var recalculateMatrix = function(){
+    matrix = [];
+    for (var i = 0; i< AV.consts.totalWidth; i++) {
+      matrix.push([]);
+    }
+    blocks.forEach(function(b){
+      var coords = calculateMatrixPosition(b);
+      matrix[coords.x][coords.y] = b;
+    });
+  };
+
   var createNewBlock = function() {
+    recalculateMatrix();
     block = new AV.block(
       ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize, 0);
   };
@@ -76,7 +88,7 @@ AV.main = (function() {
     };
   };
 
-  var checkWithMatrix = function(b) {
+  var checkWithMatrix = function(b, active) {
     var coords = calculateMatrixPosition(b);
     matrix[coords.x][coords.y] = b;
     matches = [b];
