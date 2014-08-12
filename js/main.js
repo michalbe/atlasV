@@ -40,22 +40,13 @@ AV.main = (function() {
 
   var tick = function() {
     clearCanvas();
+    AV.BLOCK.draw(2, 2, '#FF00FF');
     //requestAnimationFrame(tick);
-  };
-
-  var drawBlock = function(x, y, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(
-      x*AV.consts.cellSize-0.5,
-      y*AV.consts.cellSize-0.5,
-      AV.consts.cellSize,
-      AV.consts.cellSize
-    );
   };
 
   return {
     init: init,
-    drawBlock: drawBlock
+    ctx: ctx
   };
 })();
 
