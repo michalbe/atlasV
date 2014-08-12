@@ -1,13 +1,15 @@
 'use strict';
 
 var AV = AV || {};
+var colors = ['#FF0000', '#00FF00', '#0000FF', '#CCCCCC'];
 
-AV.block = function(x, y, color, speed) {
+AV.block = function(x, y, speed) {
   this.x = x;
   this.y = y;
   this.speedY = speed || 10;
   this.speedX = 0;
-  this.color = color;
+  this.type = ~~(Math.random()*4);
+  this.color = colors[this.type];
   this.size = AV.consts.cellSize;
 };
 

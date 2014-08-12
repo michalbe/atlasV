@@ -55,11 +55,7 @@ AV.main = (function() {
 
   var createNewBlock = function() {
     block = new AV.block(
-      ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize,
-      0,
-      'rgb(' + ~~(Math.random()*255) +',' +
-      ~~(Math.random()*255) +',' + ~~(Math.random()*255) +')'
-    );
+      ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize, 0);
   };
 
   var addToStack = function(b) {
