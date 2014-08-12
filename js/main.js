@@ -27,6 +27,9 @@ AV.main = (function() {
       start += AV.consts.cellSize;
     }
   };
+
+  var block = new AV.block(0, 0, '#FF00FF');
+
   var init = function() {
     canvas.width = AV.consts.totalWidth;
     canvas.height = AV.consts.totalHeight;
@@ -40,8 +43,9 @@ AV.main = (function() {
 
   var tick = function() {
     clearCanvas();
-    AV.BLOCK.draw(2, 2, '#FF00FF');
-    //requestAnimationFrame(tick);
+    block.update();
+    block.draw();
+    requestAnimationFrame(tick);
   };
 
   return {
