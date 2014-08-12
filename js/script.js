@@ -33,8 +33,7 @@ var AV = (function() {
     }
   };
   var init = function(){
-    drawGrid();
-    drawBlock(2, 2, '#FF00FF');
+    tick();
   };
 
   var drawBlock = function(x, y, color) {
@@ -42,6 +41,16 @@ var AV = (function() {
     ctx.fillRect(x*cellSize-0.5, y*cellSize-0.5, cellSize, cellSize);
   };
 
+  var clearCanvas = function(){
+    ctx.clearRect(0, 0, totalWidth, totalHeight);
+    drawGrid();
+  };
+
+  var tick = function() {
+    clearCanvas();
+    drawBlock(~~(Math.random()*cellsX), ~~(Math.random()*cellsY), '#FF00FF');
+    requestAnimationFrame(tick);
+  }
   return {
     init: init
   };
