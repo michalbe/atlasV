@@ -4,9 +4,9 @@ var AV = AV || {};
 var colors = ['#FF0000', '#00FF00', '#0000FF', '#CCCCCC'];
 
 AV.block = function(x, y, speed) {
-  this.x = x;
+  this.x = x-0.5;
   this.y = y;
-  this.speedY = speed || 10;
+  this.speedY = speed || 3;
   this.speedX = 0;
   this.type = ~~(Math.random()*4);
   this.color = colors[this.type];
@@ -25,6 +25,7 @@ AV.block.prototype.update = function() {
 
   if (this.y >= AV.consts.totalHeight - this.size || c) {
     this.y = (~~(this.y/this.size))*this.size;
+    AV.main.addToMatrix(this);
     AV.main.addToStack(this);
     AV.main.createNewBlock();
   } else {

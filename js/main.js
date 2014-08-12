@@ -4,6 +4,11 @@ var AV = AV || {};
 
 AV.main = (function() {
   var blocks = [];
+  var matrix = [];
+  for (var i = 0; i< AV.consts.totalWidth; i++) {
+    matrix.push([]);
+  }
+
    var canvas = document.getElementById('canvas');
    var ctx = canvas.getContext('2d');
 
@@ -58,6 +63,20 @@ AV.main = (function() {
       ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize, 0);
   };
 
+  var calculateMatrixPosition = function(b) {
+    var halfSize = ~~(AV.consts.cellSize/2);
+    return {
+      x: ~~((b.x+halfSize) / AV.consts.cellSize),
+      y: ~~((b.y+halfSize) / AV.consts.cellSize)
+    }
+  };
+
+  var addToMatrix = function(b) {
+    var coords = calculateMatrixPosition(b);
+    console.log(coords);
+    matrix[coords.x][coords.y] = b;
+  };
+
   var addToStack = function(b) {
     blocks.push(b);
   };
@@ -67,6 +86,7 @@ AV.main = (function() {
     ctx: ctx,
     createNewBlock: createNewBlock,
     addToStack: addToStack,
+    addToMatrix: addToMatrix,
     get blocks() { return blocks; }
   };
 })();
