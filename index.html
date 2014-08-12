@@ -6,12 +6,38 @@
     }
     canvas {
       border: 2px solid black;
+    }
+
+    #container {
       margin: auto;
+      width: 300px;
+      position: relative;
+    }
+
+    .gun {
+      width: 50px;
+      height: 30px;
+      background: #000;
+      opacity: 0.7;
+      position: absolute;
+      top: 0;
+    }
+
+    #gun1 {
+      left: -10px;
+    }
+
+    #gun2 {
+      right: -10px;
     }
   </style>
 </head>
 <body>
-  <canvas id='canvas'></canvas>
+  <div id="container">
+    <canvas id='canvas'></canvas>
+    <div class="gun" id="gun1"></div>
+    <div class="gun" id="gun2"></div>
+  </div>
   <script src="js/consts.js"></script>
   <script src="js/block.js"></script>
   <script src="js/main.js"></script>
