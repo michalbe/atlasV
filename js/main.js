@@ -63,7 +63,8 @@ AV.main = (function() {
 
   var addToStack = function(b) {
     blocks.push(b);
-  }
+  };
+
   return {
     init: init,
     ctx: ctx,
