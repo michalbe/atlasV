@@ -68,7 +68,7 @@ AV.main = (function() {
     return {
       x: ~~((b.x+halfSize) / AV.consts.cellSize),
       y: ~~((b.y+halfSize) / AV.consts.cellSize)
-    }
+    };
   };
 
   var addToMatrix = function(b) {
