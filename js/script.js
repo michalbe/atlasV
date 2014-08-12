@@ -34,6 +34,12 @@ var AV = (function() {
   };
   var init = function(){
     drawGrid();
+    drawBlock(2, 2, '#FF00FF');
+  };
+
+  var drawBlock = function(x, y, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x*cellSize-0.5, y*cellSize-0.5, cellSize, cellSize);
   };
 
   return {
