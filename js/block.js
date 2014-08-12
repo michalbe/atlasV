@@ -1,10 +1,6 @@
-var BLOCK = (function() {
-  var drawBlock = function(x, y, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x*cellSize-0.5, y*cellSize-0.5, cellSize, cellSize);
-  };
+'use strict';
 
-  return {
-    draw: drawBlock
-  }
+var AV = AV || {};
+
+AV.BLOCK = (function() {
 })();
