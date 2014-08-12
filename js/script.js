@@ -50,7 +50,8 @@ var AV = (function() {
     clearCanvas();
     drawBlock(~~(Math.random()*cellsX), ~~(Math.random()*cellsY), '#FF00FF');
     requestAnimationFrame(tick);
-  }
+  };
+
   return {
     init: init
   };
