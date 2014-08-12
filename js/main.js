@@ -3,6 +3,7 @@
 var AV = AV || {};
 
 AV.main = (function() {
+  var blocks = [];
    var canvas = document.getElementById('canvas');
    var ctx = canvas.getContext('2d');
 
@@ -28,11 +29,12 @@ AV.main = (function() {
     }
   };
 
-  var block = new AV.block(0, 0, '#FF00FF');
+  var block;
 
   var init = function() {
     canvas.width = AV.consts.totalWidth;
     canvas.height = AV.consts.totalHeight;
+    createNewBlock();
     tick();
   };
 
@@ -46,11 +48,27 @@ AV.main = (function() {
     block.update();
     block.draw();
     requestAnimationFrame(tick);
+    blocks.forEach(function(b){
+      b.draw();
+    });
   };
 
+  var createNewBlock = function() {
+    block = new AV.block(
+      ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize,
+      0,
+      '#FF00FF'
+    );
+  };
+
+  var addToStack = function(b) {
+    blocks.push(b);
+  }
   return {
     init: init,
-    ctx: ctx
+    ctx: ctx,
+    createNewBlock: createNewBlock,
+    addToStack: addToStack
   };
 })();
 
