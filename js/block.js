@@ -8,7 +8,7 @@ AV.block = function(x, y, speed) {
   this.y = y;
   this.speedY = speed || 3;
   this.speedX = 0;
-  this.type = ~~(Math.random()*4);
+  this.type = ~~(Math.random()*2);
   this.color = colors[this.type];
   this.size = AV.consts.cellSize;
 };
@@ -25,7 +25,7 @@ AV.block.prototype.update = function() {
 
   if (this.y >= AV.consts.totalHeight - this.size || c) {
     this.y = (~~(this.y/this.size))*this.size;
-    AV.main.addToMatrix(this);
+    AV.main.checkWithMatrix(this);
     AV.main.addToStack(this);
     AV.main.createNewBlock();
   } else {
