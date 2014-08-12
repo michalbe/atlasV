@@ -15,5 +15,5 @@ AV.BLOCK = (function() {
 
   return {
     draw: draw
-  }
+  };
 })();
