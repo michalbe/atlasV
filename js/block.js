@@ -8,7 +8,7 @@ AV.block = function(x, y, speed) {
   this.y = y;
   this.speedY = speed || 6;
   this.speedX = 0;
-  this.type = ~~(Math.random()*4);
+  this.type = ~~(Math.random()*3);
   this.color = colors[this.type];
   this.size = AV.consts.cellSize;
   this.active = true;
@@ -33,7 +33,15 @@ AV.block.prototype.update = function() {
   if (this.y >= AV.consts.totalHeight - this.size || this.collides) {
     this.y = (~~(this.y/this.size))*this.size;
     if (this.active) {
-      AV.main.addToStack(this);
+      if (this.collides && AV.main.blocks[this.colw].pr) {
+        // collision with projectile
+        this.speedX = AV.main.blocks[this.colw].speedX = 3;
+      } else {
+        AV.main.addToStack(this);
+      }
+    } else {
+      this.speedX = 0;
+      this.speedY = 6;
     }
 
     AV.main.checkWithMatrix(this);
@@ -44,6 +52,12 @@ AV.block.prototype.update = function() {
     }
   } else {
     this.y += this.speedY;
+  }
+
+  if (this.x > AV.consts.totalWidth - this.size) {
+    this.x = (~~(this.x/this.size))*this.size;
+    this.speedX = 0;
+    this.speedY = 6;
   }
 
   this.x += this.speedX;
