@@ -49,11 +49,15 @@ AV.main = (function() {
     drawGrid();
   };
 
+  var ticks = 0;
   var tick = function() {
+    ticks++;
     clearCanvas();
     block.update();
     block.draw();
     blocks.forEach(function(b){
+      // I know it makes no sense at all, but it's 4 AM and it works. Kind of.
+      b.update();
       b.update();
       b.draw();
     });
@@ -74,10 +78,16 @@ AV.main = (function() {
     });
   };
 
-  var createNewBlock = function() {
+  var createNewBlock = function(projectile) {
+    if (!projectile) {
+      block = new AV.block(
+        ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize, 0);
+    } else {
+      var pr = blocks.push(new AV.block(0, 150));
+      blocks[pr-1].speedX = 8;
+      blocks[pr-1].speedY = 1;
+    }
     recalculateMatrix();
-    block = new AV.block(
-      ~~(Math.random()*AV.consts.cellsX)*AV.consts.cellSize, 0);
   };
 
   var calculateMatrixPosition = function(b) {
